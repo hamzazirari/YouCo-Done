@@ -11,8 +11,18 @@ export default {
 
     theme: {
         extend: {
+            colors: {
+                // On définit une palette "Restaurant" personnalisée
+                restaurant: {
+                    gold: '#C5A059',
+                    dark: '#121212',
+                    card: '#1A1A1A',
+                    accent: '#EAB308',
+                }
+            },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                serif: ['Playfair Display', 'serif'], // Ajout de la police de luxe
             },
         },
     },
