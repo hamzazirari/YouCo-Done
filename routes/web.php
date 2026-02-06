@@ -18,9 +18,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
     Route::get('/restaurants/search', [RestaurantController::class, 'search'])->name('restaurants.search');
+    Route::get('/restaurants/browse', [RestaurantController::class, 'browse'])->name('restaurants.browse'); // ✅ DÉPLACÉ ICI
     
     Route::resource('restaurants', RestaurantController::class);
 });
-Route::get('/restaurants/browse', [RestaurantController::class, 'browse'])->name('restaurants.browse');
+
 
 require __DIR__.'/auth.php';

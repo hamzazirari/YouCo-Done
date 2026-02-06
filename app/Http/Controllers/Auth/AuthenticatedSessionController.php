@@ -30,10 +30,12 @@ public function store(LoginRequest $request): RedirectResponse
 
     
     if(auth()->user()->role == 'restaurateur') {
-        return redirect()->intended(route('restaurants.index', absolute: false));
+        return redirect()->intended(route('restaurants.index'));
     }
+    else if(auth()->user()->role == 'client'){
+        return redirect()->intended(route('restaurants.browse'));
 
-    return redirect()->intended(route('dashboard', absolute: false));
+    }
 }
     /**
      * Destroy an authenticated session.
