@@ -87,18 +87,21 @@ class RestaurantController extends Controller
 public function search(Request $request)
 {
     $restaurants = Restaurant::when(request('ville'), function($q) {
-            $q->where('ville', 'like', '%' . request('ville') . '%');
+            $q->where('ville', 'ilike', '%' . request('ville') . '%');
         })
         ->when(request('cuisine'), function($q) {
-            $q->where('cuisine', 'like', '%' . request('cuisine') . '%');
+            $q->where('cuisine', 'ilike', '%' . request('cuisine') . '%');
         })
         ->paginate(request('per_page', 10));
     
     return view('restaurants.search', compact('restaurants'));
 }
 
-public function browse(){
-    $restaurants = Restaurant::All();
+public function browse(Request $request){
+    $restaurants = Restaurant::when(request('ville'), function($q) {
+            $q->where('ville', 'ilike', '%' . request('ville') . '%');
+        })
+        ->get();
     return view('restaurants.browse',compact('restaurants'));
 
 }

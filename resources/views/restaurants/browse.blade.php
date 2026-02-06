@@ -11,7 +11,7 @@
                         Découvrez des saveurs uniques dans votre ville.
                     </p>
 
-                    <form action="{{ route('restaurants.index') }}" method="GET" class="relative group">
+                    <form action="{{ route('restaurants.browse') }}" method="GET" class="relative group">
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                             <svg class="h-6 w-6 text-orange-500 group-focus-within:text-orange-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
@@ -19,9 +19,9 @@
                             </svg>
                         </div>
                         <input type="text" 
-                               name="city" 
-                               value="{{ request('city') }}"
-                               placeholder="Entrez votre ville (ex: Paris, Casablanca...)" 
+                               name="ville" 
+                               value="{{ request('ville') }}"
+                               placeholder="Entrez ville (ex: Paris, Casablanca...)" 
                                class="block w-full pl-12 pr-32 py-5 bg-gray-800 border-2 border-gray-700 rounded-2xl text-white placeholder-gray-500 focus:ring-0 focus:border-orange-500 transition-all text-lg shadow-inner">
                         
                         <button type="submit" 
@@ -29,9 +29,14 @@
                             Rechercher
                         </button>
                     </form>
+                    
                 </div>
+                
             </div>
-
+            <a href="{{ route('favorites.index') }}" 
+   class="px-8 py-5 bg-red-600 hover:bg-red-500 text-white font-bold rounded-2xl transition-all shadow-lg flex items-center gap-2 whitespace-nowrap">
+    ❤️ Mes Favoris
+</a>
             <div class="flex items-center justify-between mb-8">
                 <h3 class="text-xl font-bold text-white flex items-center">
                     <span class="w-8 h-1 bg-orange-500 rounded-full mr-3"></span>
@@ -67,17 +72,29 @@
                                 {{ $restaurant->ville }}
                             </div>
 
-                            <div class="flex items-center justify-between pt-6 border-t border-gray-700">
-                                <div class="text-sm">
-                                    <p class="text-gray-500 uppercase text-[10px] font-bold tracking-widest">Capacité</p>
-                                    <p class="text-white font-bold">{{ $restaurant->capacity }} places</p>
-                                </div>
-                                
-                                <a href="{{ route('restaurants.show', $restaurant) }}" 
-                                   class="inline-flex items-center px-5 py-2.5 bg-gray-700 hover:bg-orange-600 text-white text-sm font-bold rounded-xl transition-all group-hover:scale-105">
-                                    Voir le Menu
-                                </a>
-                            </div>
+                           <div class="flex items-center justify-between pt-6 border-t border-gray-700">
+    <div class="text-sm">
+        <p class="text-gray-500 uppercase text-[10px] font-bold tracking-widest">Capacité</p>
+        <p class="text-white font-bold">{{ $restaurant->capacity }} places</p>
+    </div>
+    
+    <div class="flex gap-2">
+        {{-- Bouton Favori --}}
+        <form action="{{ route('favorites.toggle', $restaurant->id) }}" method="POST">
+            @csrf
+            <button type="submit" 
+                    class="px-4 py-2.5 bg-gray-700 hover:bg-red-600 text-white text-sm font-bold rounded-xl transition-all">
+                ❤️
+            </button>
+        </form>
+        
+        {{-- Bouton Voir Menu --}}
+        <a href="{{ route('restaurants.show', $restaurant) }}" 
+           class="inline-flex items-center px-5 py-2.5 bg-gray-700 hover:bg-orange-600 text-white text-sm font-bold rounded-xl transition-all group-hover:scale-105">
+            Voir le Menu
+        </a>
+    </div>
+</div>
                         </div>
                     </div>
                 @empty
