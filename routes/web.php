@@ -21,5 +21,6 @@ Route::middleware('auth')->group(function () {
     
     Route::resource('restaurants', RestaurantController::class);
 });
+Route::get('/restaurants/browse', [RestaurantController::class, 'browse'])->name('restaurants.browse');
 
 require __DIR__.'/auth.php';

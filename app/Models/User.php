@@ -52,4 +52,9 @@ class User extends Authenticatable
     return $this->hasMany(Restaurant::class);
 }
 
+public function favorites()
+{
+    return $this->belongsToMany(Restaurant::class, 'user_favorites');
+}
+
 }

@@ -97,4 +97,10 @@ public function search(Request $request)
     return view('restaurants.search', compact('restaurants'));
 }
 
+public function browse(){
+    $restaurants = Restaurant::All();
+    return view('restaurants.browse',compact('restaurants'));
+
+}
+
 }
