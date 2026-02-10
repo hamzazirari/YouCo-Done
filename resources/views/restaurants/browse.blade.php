@@ -1,4 +1,15 @@
 <x-app-layout>
+  @if(session('error'))
+            <div class="mb-6 p-4 bg-red-500 text-white rounded-xl">
+                {{ session('error') }}
+            </div>
+            @endif
+
+            @if(session('warning'))
+            <div class="mb-6 p-4 bg-yellow-500 text-white rounded-xl">
+                ⚠️ {{ session('warning') }}
+            </div>
+            @endif
     <div class="min-h-screen bg-gray-900 py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
@@ -87,6 +98,12 @@
                 ❤️
             </button>
         </form>
+
+        <!-- Dans la section des boutons actions de chaque restaurant -->
+<a href="{{ route('reservations.create', $restaurant->id) }}" 
+   class="px-4 py-2 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white rounded-lg text-center font-medium transition">
+    Réserver
+</a>
         
         {{-- Bouton Voir Menu --}}
         <a href="{{ route('restaurants.show', $restaurant) }}" 

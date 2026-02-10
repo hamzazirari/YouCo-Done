@@ -28,11 +28,13 @@ public function store(LoginRequest $request): RedirectResponse
 
     $request->session()->regenerate();
 
-    
+    if(auth()->user()->role == 'admin') {
+        return redirect()->intended(route('admin.dashboard'));
+    }
     if(auth()->user()->role == 'restaurateur') {
         return redirect()->intended(route('restaurants.index'));
     }
-    else if(auth()->user()->role == 'client'){
+    if(auth()->user()->role == 'client'){
         return redirect()->intended(route('restaurants.browse'));
 
     }

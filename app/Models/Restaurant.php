@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Restaurant extends Model
 {
-    protected $fillable = ['user_id','name','ville','capacity','cuisine',];
+    protected $fillable = ['user_id','name','ville','capacity','cuisine','status'];
 
     public function user()
 {
@@ -16,6 +16,11 @@ class Restaurant extends Model
 public function favorites()
 {
     return $this->belongsToMany(User::class, 'user_favorites');
+}
+
+public function reservations()
+{
+    return $this->hasMany(Reservation::class);
 }
 
 }
